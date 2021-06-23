@@ -38,7 +38,7 @@ for uuid in $(jq -r '.[]' ${file_name}); do
             curl http://${localhost}:8042/studies/${uuid}/archive > ${accession}.zip
         fi
             if [[ ! -d data/ ]] ; then mkdir data ; fi
-            mv ${accession}.zip data/
+            mv *.zip data/
     fi
 done
 
