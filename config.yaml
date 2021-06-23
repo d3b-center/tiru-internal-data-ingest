@@ -1,0 +1,7 @@
+# see: https://docs.flywheel.io/hc/en-us/articles/360046397413
+- pattern: "{group}" 
+- pattern: "{project}"
+- pattern: "{subject}"
+- pattern: "{session}"
+- pattern: "{acquisition}"
+  packfile_type: dicom
