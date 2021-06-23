@@ -30,8 +30,13 @@ for uuid in $(jq -r '.[]' ${file_name}); do
     accession=$(curl -s http://${localhost}:8042/studies/${uuid} | jq -r '.MainDicomTags.AccessionNumber')
     if [[ " ${download_list[@]} " =~ " ${accession} " ]]; then
         if [[ -f data/${accession}.zip ]] ; then
-        # if [[ -f ${accession}.zip ]] ; then
-            curl http://${localhost}:8042/studies/${uuid}/archive > ${accession}_0.zip
+            if [[ -f data/${accession}_0.zip ]] ; then
+                let app_end=${app_end}+1
+                curl http://${localhost}:8042/studies/${uuid}/archive > ${accession}_${app_end}.zip
+            else
+                app_end=0
+                curl http://${localhost}:8042/studies/${uuid}/archive > ${accession}_${app_end}.zip
+            fi
         else
             # echo ${accession}
             # mrn=$(curl -s http://orthanc:orthanc@10.30.40.159:8042/studies/${uuid} | jq -r '.PatientMainDicomTags.PatientID')
